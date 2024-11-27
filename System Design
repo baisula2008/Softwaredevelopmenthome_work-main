@@ -1,0 +1,152 @@
+#CAPABILITY
+    Tic-tac-toe (or Noughts and crosses, Xs and Os) is a paper-and-pencil game for two  players,
+    X and O, who take turns marking the spaces in a 3×3 grid. The player who succeeds in placing 
+    three respective marks in a horizontal, vertical, or diagonal row wins the game.The game is to
+    be played between the computer and a human opponent. Either of the two can start first.
+    There are two things to implement for creating the game: the game logic and the game user interface.
+    There are various possibilities for creating the UI on Windows, including Win32 API, MFC, ATL, GDI+,
+    DirectX, etc. In this article, I will show how we can use the same game logic implementation to build
+    applications using various technologies. We will create two applications, one with Win32 API and one
+    with C++/CX for the Windows Runtime.
+
+
+#PROCESSES
+  1-Draw the board
+     First, you have to draw the board, which is made up of a 3 x 3 grid of squares. This means it has three
+     rows of three squares. Some people play with a 4 x 4 grid, but that is for more advanced players,
+     and we will focus on the 3 x 3 grid here.
+
+  2-Have the first player go first
+     Though traditionally, the first player goes with "X", you can allow the first player to decide whether he
+     wants to go with "X"s or "O"s. These symbols will be placed on the table, in the attempt to have three of
+     them in a row. If you're going first, then the best move you can make is to move into the center. This will
+     maximize your chances of winning, since you'll be able to create a row of three "X"s or "O"s in more combinations  
+     (4) this way than if you chose a different square.
+
+  3-Have the second player go second
+     After the first player goes, then the second player should put down his symbol, which will be different from the
+     symbol of the first player. The second player can either try to block the first player from creating a row of three,
+     or focus on creating his or her own row of three. Ideally, the player can do both.              
+
+  4-Keep alternating moves until one of the players has drawn a row of three symbols or until no one can win.
+     The first player to draw three of his or her symbols in a row, whether it is horizontal, vertical, or diagonal, has
+     won tic-tac-toe. However, if both players are playing with optimal strategy, then there's a good chance that no one 
+     will win because you will have blocked all of each other's opportunities to create a row of three.  
+
+  5-Keep practicing
+     Contrary to popular belief, tic-tac-toe isn't purely a game of chance. There are some strategies that can help you
+     optimize your skills and to become an expert tic-tac-toe player. If you keep playing, you'll soon learn all of the 
+     tricks to making sure you win every time -- or, at least, you'll learn the tricks to make sure you never lose. Its 
+     like 0's and x's.
+
+
+ #TECHNOLOGY
+     It was just about a year ago that Caltech scientists in the laboratory of Lulu Qian, assistant professor of bioengineering,
+     announced they had used a technique known as DNA origami to create tiles that could be designed to self-assemble into larger
+     nanostructures that carry predesigned patterns. They chose to make the world's smallest version of the iconic Mona Lisa.    
+     The feat was impressive, but the technique had a limitation similar to that of Leonardo da Vinci's oil paints: Once the image
+     was created, it could not easily be changed.
+     Now, the Caltech team has made another leap forward with the technology. They have created new tiles that are more dynamic,
+     allowing the researchers to reshape already-built DNA structures. When Caltech's Paul Rothemund (BS '94) pioneered DNA origami
+     more than a decade ago, he used the technique to build a smiley face. Qian's team can now turn that smile into a frown, and then,
+     if they want, turn that frown upside down. And they have gone even further, fashioning a microscopic game of tic-tac-toe in which
+     players place their X's and O's by adding special DNA tiles to the board.
+     "We developed a mechanism to program the dynamic interactions between complex DNA nanostructures," says Qian. "Using this mechanism,
+     we created the world's smallest game board for playing tic-tac-toe, where every move involves molecular self-reconfiguration for swapping
+     in and out hundreds of DNA strands at once."
+ #ARCHITECTURE
+
+
+I'm going to base my game design on these requirements:
+
+  .I want to develop a tic-tac-toe game accessible through any web browser.
+  .I want users to be able to play tic-tac-toe against a CPU player (an algorithm that plays automatically).
+    As a user…
+     .I can access the tic-tac-toe game landing page by typing a URL in my browser.
+     .I can select the difficulty level of the game to start from the landing page, and start the game.
+     .When the game starts, the game page is shown.
+     .The game page lets me make a move whenever it is my turn.
+     .The game page shows me my opponent's moves in real-time.
+     .I can resume any of my games that are not yet over.
+  .A game is over when either i) one player achieves three symbols in a row, or ii) all cells on the board contain a symbol.
+  .Once the game is over, the results are shown to the user. They can decide to start a new game, or leave the game screen.
+   With these requirements in mind, let's start thinking about how to implement the application.
+
+  .We can think of a game as a Process Instance. In particular, each tic-tac-toe game between a user and the computer is an 
+instance of the GameSinglePlayer Process. The Process implements the logic of the game.
+
+  .Whenever a user creates a new game, a new Process Instance is created, and that user added as a player.
+
+  .The landing page, or the Game Management Single Player Screen, is a standalone Screen listing all the running instances of
+the Game Process. From here, a user can continue their games, or start a new one.
+
+
+
+
+#Deployment
+ In the preceding sections, you deployed and tested the Tic-Tac-Toe application locally on your computer using DynamoDB Local. Now, you deploy the application in production 
+ as follows:
+
+ Deploy the application using AWS Elastic Beanstalk, an easy-to-use service for deploying and scaling web applications and services.
+
+ Elastic Beanstalk launches one or more Amazon Elastic Compute Cloud (Amazon EC2) instances, which you configure through Elastic Beanstalk, on which 
+ your Tic-Tac-Toe application will run.
+
+ Using the Amazon DynamoDB service, create a Games table that exists on AWS rather than locally on your computer.
+
+ In addition, you also have to configure permissions. Any AWS resources you create, such as the Games table in DynamoDB, are private by default.
+ Only the resource owner, that is the AWS account that created the Games table, can access this table. 
+ Thus, by default your Tic-Tac-Toe application cannot update the Games table.
+
+#Integration
+ The "Tic-Tac-Toe" method isn't different from the formula for IBP. It's just a pictorial representation of the formula (think of using the tic tac toe as expanding a matrix). 
+ The "formula" by itself isn't a function in which you plug in a function and get its primitive as the output. 
+
+ It just helps in re-expressing the integral in front of you in a different way which hopefully might be easier to solve.
+
+ Infact -- if you already didn't know it -- the IBP formula is just the product rule of differentiation rearranged.
+
+ Recently, Lima lamented on the "time consuming and tiresome" pedagogical nature of repeated integration by parts, throwing down the challenge of providing a pen-and-pencil solution to a related problem in a few seconds.
+
+ Lima put forth a simple formula as an alternative. In this work, I offer a response to Lima's challenge and his formula. 
+ Drawing on the concepts of deconstruction and problematization, I offer alternative pedagogical perspectives regarding repeated integration by parts that involves tabular integration (aka Tic-Tac-Toe). 
+
+ I also explore the case of Lima's formula when an exponent in the integral is purely imaginary and compare this approach with repeated integration by parts. 
+
+ This paper forms alternative pedagogical constructs for students and educators to work with in the space of repeated integration by parts.
+ 
+ #Services and Components
+ The Application component starts, instantiates the other components, wires them together, starts the game and waits for it to get over.
+
+ The Game component orchestrates interactions between the players and the board, determines when players can make moves and if their moves are valid and if the game is over because a player has won or because the game is drawn. It communicates with the UserInterface component to display the state of the game. It may also keep various statistics about games played.
+
+ The Player component represents a player in the game. A player may be Human, in which case the component is a proxy for the actual human player, and uses the UserInterface component to get the players move in the game.
+
+ The player may also be the computer. In this case we will be implementing two types of Computer player. 
+ The Perfect Player is an algorithm that plays a perfect game of Tic-tac-toe. It can never lose. For Tic-tac-toe, such an algorithm is easy to implement. 
+ The Self-Learning Player is a machine learning algorithm that learns how to play the game over a series of games. Indeed, one way of training the self-learning player is to have it play repeatedly against the perfect player.
+
+ The UserInterface component provides an API that the Game component can use to display the state of the game and get input on user preferences etc. It is also used by the Human Player proxy, to get moves from a human player.
+
+#Applications
+ Winning: Each of the players tries to place three of their symbols in three adjacent horizontal, vertical, or diagonal cells. 
+ One who achieves this alignment earlier is the winner. While the second Player tries to interrupt Player 1’s alignment by placing his own symbols in between the symbols of Player 1.
+
+ Loosing: If your competitor gets the required alignment of symbols first, you lose.
+
+ Draw: If all the nine cells of the grip are marked, and none of the players, achieves the required alignment. The condition is a draw or tie. None of the players gets a point in this case. This condition takes place numerous times during the game-play and is actually amusing.
+
+#Events
+ It is straightforward to write a computer program to play tic-tac-toe perfectly or to enumerate the 765 essentially different positions (the state space complexity) or the 26,830 possible games up to rotations and reflections (the game tree complexity) on this space.
+
+#Data
+ It starts with 2 completely random Tic-tac-toe move generators playing each other. After a game is finished, one of the machines takes all of the decision data that it collected from the game, and puts it in it’s database. If that move resulted in a win, that move gains 3 points. If the move resulted in a loss, it loses 1 point. A tie game results in plus 1 point. Over a period of 100,000 games, each unique scenario is documented in it’s database, along with the moves it chose after that. Moves with higher scores for that scenario are more likely to be picked in the next game, while moves with lower scores are more unlikely.
+
+ The idea is that over the course of several thousand games, moves that resulted in wins or ties gain more points, and are more likely to be picked. What resulted was a database of over 2,000 unique game scenarios, with different weights for each move. Below is a plot of the total amount of unique scenarios in the database over the course of the 100,000 games.a
+
+
+
+
+
+
+                 
